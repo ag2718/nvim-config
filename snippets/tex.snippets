@@ -1,0 +1,213 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+global !p
+texMathZones = ['texMathZone' + x for x in ['A', 'AS', 'B', 'BS', 'C', 'CS',
+'D', 'DS', 'E', 'ES', 'F', 'FS', 'G', 'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS',
+'K', 'KS', 'L', 'LS', 'DS', 'V', 'W', 'X', 'Y', 'Z', 'AmsA', 'AmsB', 'AmsC',
+'AmsD', 'AmsE', 'AmsF', 'AmsG', 'AmsAS', 'AmsBS', 'AmsCS', 'AmsDS', 'AmsES',
+'AmsFS', 'AmsGS' ]]
+
+texIgnoreMathZones = ['texMathText']
+
+texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
+texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
+
+ignore = texIgnoreMathZoneIds[0]
+
+def math():
+	synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
+	try:
+		first = next(
+            i for i in reversed(synstackids)
+            if i in texIgnoreMathZoneIds or i in texMathZoneIds
+        )
+		return first != ignore
+	except StopIteration:
+		return False
+endglobal
+
+snippet doctemplate "Base template for LaTeX document" b
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+
+\title{$1}
+\author{Aarush Gupta}
+\date{$2}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{physics}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Aarush Gupta}
+\lhead{$1}
+\fancyfoot[C]{\thepage}
+
+\urlstyle{same}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+$0
+\end{document}
+endsnippet
+
+snippet beg "begin{} / end{}" bA
+\begin{$1}
+	$0
+\end{$1}
+endsnippet
+
+snippet bsal "begin{align*} / end{align*}" bA
+\begin{align*}
+	$0
+\end{align*}
+endsnippet
+
+snippet enum "Enumerate" bA
+\begin{enumerate}
+	\item $0
+\end{enumerate}
+endsnippet
+
+snippet itemz "Itemize" bA
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+priority 1000
+snippet '^.*\)/' "() Fraction" wrA
+`!p
+stripped = match.string[:-1]
+depth = 0
+i = len(stripped) - 1
+while True:
+	if stripped[i] == ')': depth += 1
+	if stripped[i] == '(': depth -= 1
+	if depth == 0: break;
+	i -= 1
+snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+`{$1}$0
+endsnippet
+
+snippet dint "Definite integral" wA
+\int_{$1}^{$2} $3 \, d$0
+endsnippet
+
+snippet iint "Indefinite integral" wA
+\int $1 \, d$0
+endsnippet
+
+snippet dm "Display math" wA
+\[ $1. \]$0
+endsnippet
+
+snippet im "Inline math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+	snip.rv = ' '
+else:
+	snip.rv = ''
+`$2
+endsnippet
+
+context "math()"
+snippet sr "squared" iA
+^2
+endsnippet
+
+context "math()"
+snippet cb "squared" iA
+^3
+endsnippet
+
+context "math()"
+snippet pw "to the ... power" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet tt "text" iA
+\text{$1}$0
+endsnippet
+
+context "math()"
+snippet par "parentheses" iA
+\left($1\right)$0
+endsnippet
+
+context "math()"
+snippet brc "brackets" iA
+\left[$1\right]$0
+endsnippet
+
+context "math()"
+snippet case "cases" wA
+\begin{cases}
+	$1
+\end{cases}$0
+endsnippet
+
+context "math()"
+snippet oo "\infty" iA
+\infty
+endsnippet
+
+context "math()"
+snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec)' "Inverse trig funcs" rwA
+`!p snip.rv = "\\" + match.group(1)[3:]`^{-1}
+endsnippet
+
+context "math()"
+snippet '(?<!\\)(sin|cos|tan|cot|csc|ln|log|sec|sqrt)' "Various Functions" rwA
+`!p snip.rv = "\\" + match.group(1)`
+endsnippet
+
+context "math()"
+snippet '(?<!\\)(pi|Pi|theta|Theta|alpha|lambda|Lambda)' "Various Functions" rwA
+`!p snip.rv = "\\" + match.group(1)`
+endsnippet
+
+snippet fig "Include graphics" bA
+\includegraphics[scale=$1]{$2}$0

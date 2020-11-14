@@ -24,24 +24,52 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
-snippet bits "Include bits/stdc++.h file" b
+snippet bits "Include bits/stdc++.h file" bA
 #include <bits/stdc++.h>
 endsnippet
 
-snippet fileio "C++ File I/O" b A
+snippet fileio "C++ File I/O" bA
 ifstream fin("$1.in");
 ofstream fout("$1.out");
+$0
 endsnippet
 
-snippet std "Using namespace std" b
+snippet std "Using namespace std" bA
 using namespace std;
 endsnippet
 
-snippet main "Create main function" b
+snippet main "Create main function" bA
 int main(int argc, char* argv[])
 {
-	$1
+	$0
 
 	return 0;
 }
 endsnippet
+
+snippet vc "Vector" wA
+vector<$1> $0
+endsnippet
+
+snippet pr "Pair" wA
+pair<$1, $2> $0
+endsnippet
+
+snippet mkpr "Make pair function" wA
+make_pair($1, $2)$0
+endsnippet
+
+snippet readarr "Read in elements into an array" b
+for (int &i : $1) $2in >> i;$0
+endsnippet
+
+snippet read2darr "Read in elements into a 2D array" b
+for (int row[] : $1) for (int &i : row) $2in >> i;$0
+endsnippet
+
+snippet outarr "Output the elements of an array" b
+for (int i : $1) $2out << i << $3;$0
+endsnippet
+
+snippet out2darr "Output the elements of a 2D array" b
+for (int row[] : $1) for (int &i : row) $2out >> i;$0
