@@ -14,14 +14,25 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'jiangmiao/auto-pairs'
     "IntelliSense (COC)
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " Snippets and autcomplete
     Plug 'mattn/emmet-vim'
     Plug 'honza/vim-snippets'
+    " Themes / visual
     Plug 'ayu-theme/ayu-vim'
     Plug 'itchyny/lightline.vim'
+    " Comment action
     Plug 'tpope/vim-commentary'
+    " Latex support for vim
     Plug 'lervag/vimtex'
+    " Displays buffers
     Plug 'bling/vim-bufferline'
+    " Fuzzy finder
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'airblade/vim-rooter'
-    call plug#end()
+    " Sneak motion
+    Plug 'justinmk/vim-sneak'
+    " Surround command
+    Plug 'tpope/vim-surround' 
+
+call plug#end()

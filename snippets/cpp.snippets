@@ -1,6 +1,5 @@
 # A valid snippet should starts with:
-#
-#		snippet trigger_word [ "description" [ options ] ]
+# snippet trigger_word [ "description" [ options ] ]
 #
 # and end with:
 #
@@ -51,12 +50,24 @@ snippet vc "Vector" wA
 vector<$1> $0
 endsnippet
 
+snippet .pb "Push back (append to vector)" iA
+.push_back($1)$0
+endsnippet
+
 snippet pr "Pair" wA
 pair<$1, $2> $0
 endsnippet
 
 snippet mkpr "Make pair function" wA
 make_pair($1, $2)$0
+endsnippet
+
+snippet .ff "First" iA
+.first
+endsnippet
+
+snippet .ss "Second" iA
+.second
 endsnippet
 
 snippet readarr "Read in elements into an array" b

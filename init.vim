@@ -3,6 +3,7 @@ source $HOME/.config/nvim/themes/ayu.vim
 source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/vimtex.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
+source $HOME/.config/nvim/plug-config/sneak.vim
 
 set nocompatible
 set number
@@ -17,19 +18,33 @@ let g:autopep8_disable_show_diff=1
 let g:python3_host_prog = '/usr/local/bin/python3'
 
 autocmd BufWritePost,FileWritePost *.cpp !g++ -g -Werror -std=c++11 % -o %:r 
-autocmd BufWinLeave *.cpp !rm %:r && rm -rf %:r.dSYM
+autocmd FileType * nnoremap ç¬ :!rm %:r && rm -rf %:r.dSYM<CR><CR>
 
 let g:tex_no_error=1
 autocmd BufWinLeave *.tex !rm *.fls *.aux *.fdb_latexmk *.gz *.toc *.out *.log *.synctex*
 
 set tabstop=4
 set shiftwidth=4
+autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
 set expandtab
 
 syntax on
 
+set ignorecase
+
 inoremap jk <Esc>
 inoremap kj <Esc>
+
+nnoremap j gj
+nnoremap k gk
+
+inoremap ˙ <left>
+inoremap ∆ <esc>gji
+inoremap ˚ <esc>gki
+inoremap ¬ <right>
+inoremap ∑ <esc>wi
+inoremap é <esc>eli
+inoremap ∫ <esc>bi
 
 " Removing functionality of arrow keys
 noremap <Up> <Nop>
@@ -46,5 +61,5 @@ let g:user_emmet_leader_key=','
 
 nnoremap <CR> :noh<CR><CR>
 
-nnoremap  <silent>   <tab>  :x<CR>:bnext<CR>
-nnoremap  <silent> <s-tab>  :x<CR>:bprev<CR>
+nnoremap  <silent>   <tab>  :up<CR>:bnext<CR>
+nnoremap  <silent> <s-tab>  :up<CR>:bprev<CR>
