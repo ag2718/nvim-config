@@ -1,9 +1,13 @@
-source $HOME/.config/nvim/vim-plug/plugins.vim
-source $HOME/.config/nvim/themes/ayu.vim
-source $HOME/.config/nvim/plug-config/coc.vim
-source $HOME/.config/nvim/plug-config/vimtex.vim
-source $HOME/.config/nvim/plug-config/fzf.vim
-source $HOME/.config/nvim/plug-config/sneak.vim
+if has('nvim')
+    source $HOME/.config/nvim/vim-plug/plugins.vim
+    source $HOME/.config/nvim/themes/ayu.vim
+    source $HOME/.config/nvim/plug-config/coc.vim
+    source $HOME/.config/nvim/plug-config/vimtex.vim
+    source $HOME/.config/nvim/plug-config/fzf.vim
+    source $HOME/.config/nvim/plug-config/sneak.vim
+else
+    colorscheme murphy
+endif
 
 set nocompatible
 set number
@@ -11,14 +15,16 @@ set relativenumber
 
 set noshowmode
 
+set mouse=a
+
 filetype on
 filetype plugin indent on
 
 let g:autopep8_disable_show_diff=1
 let g:python3_host_prog = '/usr/local/bin/python3'
 
-autocmd BufWritePost,FileWritePost *.cpp !g++ -g -Werror -std=c++11 % -o %:r 
-autocmd FileType * nnoremap ç¬ :!rm %:r && rm -rf %:r.dSYM<CR><CR>
+autocmd BufWritePost,FileWritePost *.cpp !g++ -Wall -std=c++11 -fsanitize=undefined -D_GLIBCXX_DEBUG % -o %:r 
+autocmd VimLeave *.cpp !rm %:r && rm -rf *.dSYM
 
 let g:tex_no_error=1
 autocmd BufWinLeave *.tex !rm *.fls *.aux *.fdb_latexmk *.gz *.toc *.out *.log *.synctex*
@@ -34,6 +40,9 @@ set ignorecase
 
 inoremap jk <Esc>
 inoremap kj <Esc>
+
+tnoremap jk <C-\><C-n>
+tnoremap kj <C-\><C-n>
 
 nnoremap j gj
 nnoremap k gk
@@ -52,12 +61,7 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-set noswapfile
-
 set clipboard+=unnamedplus
-
-" Emmet comma leader key
-let g:user_emmet_leader_key=','
 
 nnoremap <CR> :noh<CR><CR>
 

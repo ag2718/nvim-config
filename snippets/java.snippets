@@ -32,7 +32,7 @@ public class $1Viewer
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setSize(150, 150);
-        frame.setTitle("V");
+        frame.setTitle("$2");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.add(new $1Component());
@@ -45,15 +45,15 @@ endsnippet
 snippet graphiccomponent "Creates a template for the component file of a graphics project" bA
 import javax.swing.JComponent;
 import java.awt.*;
+import java.awt.geom.*;
 
-public class VComponent extends JComponent
+public class $1Component extends JComponent
 {
     public void paintComponent(Graphics g) 
     {
         Graphics2D g2 = (Graphics2D) g;
-
-        g2.draw(new Line2D.Double(30, 10, 60, 60));
-        g2.draw(new Line2D.Double(60, 60, 90, 10));
+		
+		$0
     }
 }
 endsnippet

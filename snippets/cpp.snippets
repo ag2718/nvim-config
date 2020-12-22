@@ -28,8 +28,10 @@ snippet bits "Include bits/stdc++.h file" bA
 endsnippet
 
 snippet fileio "C++ File I/O" bA
-ifstream fin("$1.in");
-ofstream fout("$1.out");
+ios_base::sync_with_stdio(0);
+cin.tie(0);
+freopen("$1.in", "r", stdin);
+freopen("$1.out", "w", stdout);
 $0
 endsnippet
 
@@ -46,41 +48,66 @@ int main(int argc, char* argv[])
 }
 endsnippet
 
-snippet vc "Vector" wA
-vector<$1> $0
+snippet typell "Shortened version of long long" bA
+typedef long long ll;
 endsnippet
 
-snippet .pb "Push back (append to vector)" iA
-.push_back($1)$0
+snippet fr\ "Traditional for loop" wA
+for (int $1 = $2; $1 < $3; $1++) {
+  $0
+}
 endsnippet
 
-snippet pr "Pair" wA
-pair<$1, $2> $0
+snippet fre\ "For each loop" wA
+for (auto &$1 : $2) {
+  $0
+}
 endsnippet
 
-snippet mkpr "Make pair function" wA
-make_pair($1, $2)$0
+snippet reseq "Read in a sequence of values into a container" wA
+for (auto &e : $1) cin >> e;$0
 endsnippet
 
-snippet .ff "First" iA
-.first
+snippet prseq "Printing out the elements of a container" wA
+for (auto &e : $1) cout << e$0
+endsnippet 
+
+snippet pb "push_back() function for vector" wA
+push_back($1);$0
 endsnippet
 
-snippet .ss "Second" iA
-.second
+snippet ff "first attribute of a pair" wA
+first
 endsnippet
 
-snippet readarr "Read in elements into an array" b
-for (int &i : $1) $2in >> i;$0
+snippet ss "second attribute of a pair" wA
+second
 endsnippet
 
-snippet read2darr "Read in elements into a 2D array" b
-for (int row[] : $1) for (int &i : row) $2in >> i;$0
+snippet sz "size function" wA
+size()
 endsnippet
 
-snippet outarr "Output the elements of an array" b
-for (int i : $1) $2out << i << $3;$0
+snippet bgnd "begin() and end()" wA
+$1.begin(), $1.end()
 endsnippet
 
-snippet out2darr "Output the elements of a 2D array" b
-for (int row[] : $1) for (int &i : row) $2out >> i;$0
+snippet lb "lower_bound() function for set, multiset, etc." w
+lower_bound($1)$0
+endsnippet
+
+snippet ub "upper_bound() function for set, vector, etc." w
+upper_bound($1)$0
+endsnippet
+
+snippet 'dbg\((.*)\);' "Debugging sequence of values" rbA
+`!p snip.rv = "cerr << " + "".join([val.strip() + " << ' ' << " for val in match.group(1).split(',')]) + "endl;"`$0
+endsnippet
+
+snippet 'test "bruh" rA
+`!p snip.rv = "HIIII"`
+endsnippet
+
+snippet dbgarr "Debugging array by printing all values to stdcerr" bA
+for (auto &e : $1) cerr << e << " "; cerr << endl;
+endsnippet
