@@ -14,6 +14,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'jiangmiao/auto-pairs'
     "IntelliSense (COC)
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " Better syntax highlighting
+    Plug 'nvim-treesitter/nvim-treesitter'
     " Snippets and autcomplete
     Plug 'mattn/emmet-vim'
     Plug 'honza/vim-snippets'
@@ -34,5 +36,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'justinmk/vim-sneak'
     " Surround command
     Plug 'tpope/vim-surround' 
+
 
 call plug#end()

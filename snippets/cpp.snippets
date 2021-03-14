@@ -99,13 +99,9 @@ endsnippet
 snippet ub "upper_bound() function for set, vector, etc." w
 upper_bound($1)$0
 endsnippet
-
+ 
 snippet 'dbg\((.*)\);' "Debugging sequence of values" rbA
 `!p snip.rv = "cerr << " + "".join([val.strip() + " << ' ' << " for val in match.group(1).split(',')]) + "endl;"`$0
-endsnippet
-
-snippet 'test "bruh" rA
-`!p snip.rv = "HIIII"`
 endsnippet
 
 snippet dbgarr "Debugging array by printing all values to stdcerr" bA

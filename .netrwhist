@@ -1,4 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =2
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/Users/aarushgupta/.config/nvim/vim-plug'
+let g:netrw_dirhist_6='/Users/aarushgupta/Code/USACO/C++/Practice/USACO/silver'
+let g:netrw_dirhist_5='/Users/aarushgupta/.config/nvim'
+let g:netrw_dirhist_4='/Users/aarushgupta/.config/nvim/snippets'
+let g:netrw_dirhist_3='/Users/aarushgupta/.config/nvim'
 let g:netrw_dirhist_2='/Users/aarushgupta/.config/nvim/snippets'
 let g:netrw_dirhist_1='/Users/aarushgupta/.config/nvim'

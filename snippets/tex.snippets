@@ -84,7 +84,7 @@ $0
 \end{document}
 endsnippet
 
-snippet beg "begin{} / end{}" bA
+snippet bgnd "begin{} / end{}" bA
 \begin{$1}
 	$0
 \end{$1}
@@ -200,12 +200,12 @@ snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec)' "Inverse trig funcs
 endsnippet
 
 context "math()"
-snippet '(?<!\\)(sin|cos|tan|cot|csc|ln|log|sec|sqrt)' "Various Functions" rwA
+snippet '(?<!\\)(sin|cos|tan|cot|csc|ln|log|sec|sqrt)' "Various functions" rwA
 `!p snip.rv = "\\" + match.group(1)`
 endsnippet
 
 context "math()"
-snippet '(?<!\\)(pi|Pi|theta|Theta|alpha|lambda|Lambda)' "Various Functions" rwA
+snippet '(?<!\\)(pi|Pi|theta|Theta|alpha|lambda|Lambda)' "Various Greek letters" rwA
 `!p snip.rv = "\\" + match.group(1)`
 endsnippet
 
