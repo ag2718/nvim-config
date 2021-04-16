@@ -1,14 +1,15 @@
 "Load plugin and colorscheme files
-if has('nvim')
-    source $HOME/.config/nvim/vim-plug/plugins.vim
-    source $HOME/.config/nvim/themes/ayu.vim
-    source $HOME/.config/nvim/plug-config/coc.vim
-    source $HOME/.config/nvim/plug-config/vimtex.vim
-    source $HOME/.config/nvim/plug-config/fzf.vim
-    source $HOME/.config/nvim/plug-config/sneak.vim
-else
-    colorscheme murphy
-endif
+    if has('nvim')
+        source $HOME/.config/nvim/vim-plug/plugins.vim
+        source $HOME/.config/nvim/themes/ayu.vim
+        source $HOME/.config/nvim/plug-config/coc.vim
+        source $HOME/.config/nvim/plug-config/vimtex.vim
+        source $HOME/.config/nvim/plug-config/fzf.vim
+        source $HOME/.config/nvim/plug-config/sneak.vim
+        source $HOME/.config/nvim/plug-config/emmet.vim
+    else
+        colorscheme murphy
+    endif
 
 "General options
 
@@ -25,6 +26,9 @@ filetype on
 filetype plugin indent on
 
 syntax on
+
+" Automatically open fzf when buffer is empty
+autocmd VimEnter * if @% == "" | Files
 
 "Filetype-specific customizations
 
@@ -62,8 +66,8 @@ set expandtab
 inoremap jk <Esc>
 inoremap kj <Esc>
 
-tnoremap jk <C-\><C-n>
-tnoremap kj <C-\><C-n>
+tnoremap ∆˚ <C-\><C-n>:bnext<CR>
+tnoremap ˚∆ <C-\><C-n>:bnext<CR>
 
 nnoremap j gj
 nnoremap k gk

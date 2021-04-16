@@ -15,8 +15,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     "IntelliSense (COC)
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " Better syntax highlighting
-    Plug 'nvim-treesitter/nvim-treesitter'
-    " Snippets and autcomplete
     Plug 'mattn/emmet-vim'
     Plug 'honza/vim-snippets'
     " Themes / visual
@@ -36,6 +34,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'justinmk/vim-sneak'
     " Surround command
     Plug 'tpope/vim-surround' 
-
-
+    "Ranger support in nvim
+    Plug 'kevinhwang91/rnvimr'
+    
 call plug#end()

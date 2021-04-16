@@ -4,3 +4,7 @@ let g:lightline = {
       \ 'colorscheme': 'ayu_dark',
       \ }
 colorscheme ayu
+
+" IndentLine {{
+let g:indentLine_setColors = 0
+" }}
