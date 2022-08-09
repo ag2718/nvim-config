@@ -13,13 +13,15 @@
 
 "General options
 
+set linebreak
+
 set nocompatible
 set number
+set mouse=a
 set relativenumber
 
 set noshowmode
 
-set mouse=a
 set ignorecase
 
 filetype on
@@ -32,8 +34,8 @@ autocmd VimEnter * if @% == "" | Files
 
 "Filetype-specific customizations
 
-autocmd BufWritePost,FileWritePost *.cpp !g++ -g -Wall -std=c++11 -fsanitize=undefined -D_GLIBCXX_DEBUG % -o %:r 
-autocmd VimLeave *.cpp !rm %:r && rm -rf *.dSYM
+" autocmd BufWritePost,FileWritePost *.cpp !g++ -g -Wall -std=c++11 -fsanitize=undefined -D_GLIBCXX_DEBUG % -o %:r 
+" autocmd VimLeave *.cpp !rm %:r && rm -rf *.dSYM
 
 let g:python_highlight_space_errors = 0
 

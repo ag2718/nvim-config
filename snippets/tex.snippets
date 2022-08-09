@@ -24,29 +24,16 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 global !p
-texMathZones = ['texMathZone' + x for x in ['A', 'AS', 'B', 'BS', 'C', 'CS',
-'D', 'DS', 'E', 'ES', 'F', 'FS', 'G', 'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS',
-'K', 'KS', 'L', 'LS', 'DS', 'V', 'W', 'X', 'Y', 'Z', 'AmsA', 'AmsB', 'AmsC',
-'AmsD', 'AmsE', 'AmsF', 'AmsG', 'AmsAS', 'AmsBS', 'AmsCS', 'AmsDS', 'AmsES',
-'AmsFS', 'AmsGS' ]]
-
-texIgnoreMathZones = ['texMathText']
-
-texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
-texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
-
-ignore = texIgnoreMathZoneIds[0]
-
 def math():
-	synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
-	try:
-		first = next(
-            i for i in reversed(synstackids)
-            if i in texIgnoreMathZoneIds or i in texMathZoneIds
-        )
-		return first != ignore
-	except StopIteration:
-		return False
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+
+def comment(): 
+    return vim.eval('vimtex#syntax#in_comment()') == '1'
+
+def env(name):
+    [x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+    return x != '0' and x != '0'
+
 endglobal
 
 snippet doctemplate "Base template for LaTeX document" b
@@ -112,31 +99,31 @@ snippet // "Fraction" iA
 \\frac{$1}{$2}$0
 endsnippet
 
-snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
-\\frac{`!p snip.rv = match.group(1)`}{$1}$0
-endsnippet
+# snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+# \\frac{`!p snip.rv = match.group(1)`}{$1}$0
+# endsnippet
 
-priority 1000
-snippet '^.*\)/' "() Fraction" wrA
-`!p
-stripped = match.string[:-1]
-depth = 0
-i = len(stripped) - 1
-while True:
-	if stripped[i] == ')': depth += 1
-	if stripped[i] == '(': depth -= 1
-	if depth == 0: break;
-	i -= 1
-snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
-`{$1}$0
-endsnippet
+# priority 1000
+# snippet '^.*\)/' "() Fraction" wrA
+# `!p
+# stripped = match.string[:-1]
+# depth = 0
+# i = len(stripped) - 1
+# while True:
+# 	if stripped[i] == ')': depth += 1
+# 	if stripped[i] == '(': depth -= 1
+# 	if depth == 0: break;
+# 	i -= 1
+# snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+# `{$1}$0
+# endsnippet
 
 snippet dint "Definite integral" wA
-\int_{$1}^{$2} $3 \, d$0
+\int_{$1}^{$2} $3 \, \mathrm d$0
 endsnippet
 
 snippet iint "Indefinite integral" wA
-\int $1 \, d$0
+\int $1 \, \mathrm d$0
 endsnippet
 
 snippet dm "Display math" wA
@@ -168,12 +155,12 @@ snippet pw "to the ... power" iA
 endsnippet
 
 context "math()"
-snippet tt "text" iA
+snippet txt "text" iA
 \text{$1}$0
 endsnippet
 
 context "math()"
-snippet par "parentheses" iA
+snippet parz "parentheses" iA
 \left($1\right)$0
 endsnippet
 
@@ -205,7 +192,7 @@ snippet '(?<!\\)(sin|cos|tan|cot|csc|ln|log|sec|sqrt)' "Various functions" rwA
 endsnippet
 
 context "math()"
-snippet '(?<!\\)(pi|Pi|theta|Theta|alpha|lambda|Lambda)' "Various Greek letters" rwA
+snippet '(?<!\\)(pi|Pi|theta|Theta|alpha|lambda|Lambda|omega|Omega|psi|Psi)' "Various Greek letters" rwA
 `!p snip.rv = "\\" + match.group(1)`
 endsnippet
 
